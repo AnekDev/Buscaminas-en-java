@@ -80,7 +80,7 @@ public class Main {
             }else{
                 tableroTapado[fila][columna] = 1;
             }
-        }
+        } 
 
     }
     
