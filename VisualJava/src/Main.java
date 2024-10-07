@@ -35,7 +35,7 @@ public class Main {
         for (int i = 0; i < 8; i++){
             for (int u = 0; u < 8; u++){
                 tablero[i][u] = 0;
-                tableroTapado[i][u] = 0;
+                tableroTapado[i][u] = 9;
             }
         }
         for (int i = 0; i < numeroBombas; i++){
@@ -60,7 +60,8 @@ public class Main {
         
         
         //Enseñando al jugador el tablero y empezando el juego
-        for(int x = 0; x < 5; x++){
+        boolean muerto = false;
+        do{
             System.out.println(contador1s+" Bombas en el Tablero");
             for (int i = 0; i < 8; i++){
                 for (int u = 0; u < 8; u++){
@@ -72,15 +73,59 @@ public class Main {
 
             int fila = scan.nextInt();
             int columna = scan.nextInt();
-
-            if(tablero[fila][columna] == 1){
-                System.out.println("KABOOOM");
-                System.out.println("GAME OVER");
-                x = 5;
-            }else{
-                tableroTapado[fila][columna] = 1;
+            
+            
+            if(tablero[fila][columna] == 0){
+                int numeroSoy = 0;
+                int filaModLow = -1;
+                int filaModTop = 2;
+                int colModLow = -1;
+                int colModTop = 2;
+                
+                //Modificador por si el jugador escoje la fila de arriba o la de abajo
+                if (fila == 0){
+                    filaModLow = 0;
+                }else if(fila == 7){
+                    filaModTop = 1;
+                }
+                
+                //Modificador por si el jugador escoje la columna de la izquierda o derecha
+                if (columna == 0){
+                    colModLow = 0;
+                }else if(columna == 7){
+                    colModTop = 1;
+                }
+                
+                // Calculo de que numero deberia de ser
+                for (int f = filaModLow; f < filaModTop; f++){
+                    for (int c = colModLow; c < colModTop; c++){
+                        if (tablero[fila + f][columna + c] == 1){
+                            numeroSoy++;
+                        }
+                    }
+                }
+                /*if(numeroSoy == 0){
+                    for (int f = filaModLow; f < filaModTop; f++){
+                        for (int c = colModLow; c < colModTop; c++){
+                            if (tablero[fila + f][columna + c] == 0){
+                                numeroSoy++;
+                            }
+                        }
+                    }    
+                }*/
+                
+                tableroTapado[fila][columna] = numeroSoy;
+            }else if (tablero[fila][columna] == 1){
+                System.out.println("Moriste");
+                muerto = true;
+                for (int i = 0; i < 8; i++){
+                for (int u = 0; u < 8; u++){
+                    System.out.print(tablero[i][u]);
+                }
+                System.out.println(" ");
             }
-        } 
+            }
+        }while(muerto == false);
 
     }
     
