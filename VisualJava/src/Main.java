@@ -16,7 +16,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         //Declaracion de variables
-        int random = (int) (Math.random() * 17);;
+        int random = (int) (Math.random() * 17);
         int[][] tablero = new int[8][8];
         int[][] tableroTapado = new int[8][8];
         int contador1s = 0;
